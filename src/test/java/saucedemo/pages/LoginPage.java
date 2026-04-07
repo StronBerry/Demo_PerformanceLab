@@ -34,10 +34,6 @@ public class LoginPage {
         clickLoginButton();
     }
 
-    public By getLockedOutErrorMessageLocator() {
-        return lockedOutErrorMessage;
-    }
-
     public String getLockedOutErrorMessageText() {
         return driver.findElement(lockedOutErrorMessage).getText();
     }

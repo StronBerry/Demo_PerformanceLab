@@ -13,10 +13,6 @@ public class ProductPage {
         this.driver = driver;
     }
 
-    public By getPageTitleLocator() {
-        return pageTitle;
-    }
-
     public boolean isPageOpened() {
         return driver.findElement(pageTitle).isDisplayed();
     }
