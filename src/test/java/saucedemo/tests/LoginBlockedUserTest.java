@@ -12,6 +12,6 @@ public class LoginBlockedUserTest extends BaseTest {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.login("locked_out_user", "secret_sauce");
 
-        Assert.assertEquals(loginPage.getLockedOutErrorMessageText(), "Epic sadface: Sorry, this user has been locked out.");
+        Assert.assertTrue(loginPage.isLockedOutErrorDisplayed());
     }
 }

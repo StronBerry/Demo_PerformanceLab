@@ -37,4 +37,10 @@ public class LoginPage {
     public String getLockedOutErrorMessageText() {
         return driver.findElement(lockedOutErrorMessage).getText();
     }
+
+    public boolean isLockedOutErrorDisplayed() {
+        return driver.findElement(lockedOutErrorMessage)
+                .getText()
+                .equals("Epic sadface: Sorry, this user has been locked out.");
+    }
 }
