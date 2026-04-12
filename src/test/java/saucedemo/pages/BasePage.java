@@ -15,5 +15,4 @@ public abstract class BasePage {
     public void open() {
         driver.get(BASE_URL);
     }
-
 }
