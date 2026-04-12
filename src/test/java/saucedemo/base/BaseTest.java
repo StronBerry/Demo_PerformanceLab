@@ -2,23 +2,35 @@ package saucedemo.base;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import saucedemo.pages.CartPage;
+import saucedemo.pages.LoginPage;
+import saucedemo.pages.ProductPage;
 
 import java.time.Duration;
 
 public class BaseTest {
 
-    protected WebDriver driver;
-    protected WebDriverWait wait;
+    public WebDriver driver;
+    public LoginPage loginPage;
+    public ProductPage productPage;
+    public CartPage cartPage;
 
     @BeforeMethod
-    public void setUp() {
-        driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        driver.manage().window().maximize();
-        driver.get("https://www.saucedemo.com/");
+    public void setup() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("start-maximized");
+        // options.addArguments("headless");
+        options.addArguments("guest");
+
+        driver = new ChromeDriver(options);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
+        loginPage = new LoginPage(driver);
+        productPage = new ProductPage(driver);
+        cartPage = new CartPage(driver);
     }
 
     @AfterMethod

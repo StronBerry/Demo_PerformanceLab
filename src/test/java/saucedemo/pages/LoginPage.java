@@ -3,44 +3,32 @@ package saucedemo.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class LoginPage {
-
-    private final WebDriver driver;
+public class LoginPage extends BasePage {
 
     private final By usernameInput = By.id("user-name");
     private final By passwordInput = By.id("password");
     private final By loginButton = By.id("login-button");
-    private final By lockedOutErrorMessage = By.xpath("//h3[@data-test='error' and text()='Epic sadface: Sorry, this user has been locked out.']");
+    private final By errorMessage = By.cssSelector("h3[data-test='error']");
 
     public LoginPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
-    public void enterUsername(String username) {
-        driver.findElement(usernameInput).sendKeys(username);
-    }
-
-    public void enterPassword(String password) {
-        driver.findElement(passwordInput).sendKeys(password);
-    }
-
-    public void clickLoginButton() {
-        driver.findElement(loginButton).click();
+    public void openLoginPage() {
+        open();
     }
 
     public void login(String username, String password) {
-        enterUsername(username);
-        enterPassword(password);
-        clickLoginButton();
+        driver.findElement(usernameInput).sendKeys(username);
+        driver.findElement(passwordInput).sendKeys(password);
+        driver.findElement(loginButton).click();
     }
 
-    public String getLockedOutErrorMessageText() {
-        return driver.findElement(lockedOutErrorMessage).getText();
+    public boolean isErrorMessageDisplayed() {
+        return driver.findElement(errorMessage).isDisplayed();
     }
 
-    public boolean isLockedOutErrorDisplayed() {
-        return driver.findElement(lockedOutErrorMessage)
-                .getText()
-                .equals("Epic sadface: Sorry, this user has been locked out.");
+    public String getErrorMessageText() {
+        return driver.findElement(errorMessage).getText();
     }
 }
