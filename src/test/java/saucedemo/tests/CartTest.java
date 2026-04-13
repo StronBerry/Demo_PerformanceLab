@@ -8,7 +8,6 @@ public class CartTest extends BaseTest {
 
     @Test
     public void openCartTest() {
-
         loginPage.openLoginPage();
         loginPage.login("standard_user", "secret_sauce");
 
