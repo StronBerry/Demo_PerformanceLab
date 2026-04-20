@@ -31,8 +31,11 @@ public class ProductPage extends BasePage {
         driver.findElement(addToCartButton).click();
     }
 
-    public String getCartBadgeText() {
-        return driver.findElement(cartBadge).getText();
+    public int getCartBadgeCount() {
+        if (driver.findElements(cartBadge).isEmpty()) {
+            return 0;
+        }
+        return Integer.parseInt(driver.findElement(cartBadge).getText());
     }
 
     public String getCartBadgeBackgroundColor() {

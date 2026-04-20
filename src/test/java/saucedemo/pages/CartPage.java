@@ -30,4 +30,7 @@ public class CartPage extends BasePage {
 
         return names;
     }
+    public int getProductsCount() {
+        return driver.findElements(productNames).size();
+    }
 }

@@ -25,15 +25,18 @@ public class CartTest extends BaseTest {
         for (String goods : goodsList) {
             productPage.addToCart(goods);
         }
-        assertEquals(productPage.getCartBadgeText(), String.valueOf(goodsList.size()));
+
+        assertEquals(productPage.getCartBadgeCount(), goodsList.size());
+
         productPage.switchToCart();
 
         assertTrue(cartPage.isPageOpened());
-        assertFalse(cartPage.getProductsNames().isEmpty());
-        assertEquals(cartPage.getProductsNames().size(), goodsList.size());
+        assertEquals(cartPage.getProductsCount(), goodsList.size());
+
+        List<String> actualProducts = cartPage.getProductsNames();
 
         for (String goods : goodsList) {
-            assertTrue(cartPage.getProductsNames().contains(goods));
+            assertTrue(actualProducts.contains(goods));
         }
     }
 }
