@@ -16,13 +16,17 @@ public class CartPage extends BasePage {
         super(driver);
     }
 
+    public void waitUntilPageOpened() {
+        waitUntilVisible(pageTitle);
+    }
+
     public boolean isPageOpened() {
         return driver.findElement(pageTitle).isDisplayed();
     }
 
-    public ArrayList<String> getProductsNames() {
+    public List<String> getProductsNames() {
         List<WebElement> allProducts = driver.findElements(productNames);
-        ArrayList<String> names = new ArrayList<>();
+        List<String> names = new ArrayList<>();
 
         for (WebElement product : allProducts) {
             names.add(product.getText());
@@ -30,6 +34,7 @@ public class CartPage extends BasePage {
 
         return names;
     }
+
     public int getProductsCount() {
         return driver.findElements(productNames).size();
     }

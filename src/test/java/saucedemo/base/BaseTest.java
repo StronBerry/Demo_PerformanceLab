@@ -7,16 +7,16 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import saucedemo.pages.CartPage;
 import saucedemo.pages.LoginPage;
+import saucedemo.pages.NavigationPanel;
 import saucedemo.pages.ProductPage;
-
-import java.time.Duration;
 
 public class BaseTest {
 
-    public WebDriver driver;
-    public LoginPage loginPage;
-    public ProductPage productPage;
-    public CartPage cartPage;
+    protected WebDriver driver;
+    protected LoginPage loginPage;
+    protected ProductPage productPage;
+    protected CartPage cartPage;
+    protected NavigationPanel navigationPanel;
 
     @BeforeMethod
     public void setup() {
@@ -26,11 +26,11 @@ public class BaseTest {
         options.addArguments("guest");
 
         driver = new ChromeDriver(options);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
         loginPage = new LoginPage(driver);
         productPage = new ProductPage(driver);
         cartPage = new CartPage(driver);
+        navigationPanel = new NavigationPanel(driver);
     }
 
     @AfterMethod
