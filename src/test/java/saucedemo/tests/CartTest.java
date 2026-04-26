@@ -1,11 +1,11 @@
 package saucedemo.tests;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import saucedemo.base.BaseTest;
+import user.UserFactory;
 
 import java.util.List;
-
-import static org.testng.Assert.*;
 
 public class CartTest extends BaseTest {
 
@@ -18,25 +18,25 @@ public class CartTest extends BaseTest {
 
     @Test
     public void checkGoodsInCart() {
-
         loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
+        loginPage.login(UserFactory.withCorrectData());
 
         for (String goods : goodsList) {
             productPage.addToCart(goods);
         }
 
-        assertEquals(productPage.getCartBadgeCount(), goodsList.size());
+        Assert.assertEquals(navigationPanel.getCartBadgeCount(), goodsList.size());
 
-        productPage.switchToCart();
+        navigationPanel.openCart();
+        cartPage.waitUntilPageOpened();
 
-        assertTrue(cartPage.isPageOpened());
-        assertEquals(cartPage.getProductsCount(), goodsList.size());
+        Assert.assertTrue(cartPage.isPageOpened());
+        Assert.assertEquals(cartPage.getProductsCount(), goodsList.size());
 
         List<String> actualProducts = cartPage.getProductsNames();
 
         for (String goods : goodsList) {
-            assertTrue(actualProducts.contains(goods));
+            Assert.assertTrue(actualProducts.contains(goods));
         }
     }
 }
