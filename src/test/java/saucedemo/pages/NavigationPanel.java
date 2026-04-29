@@ -2,6 +2,7 @@ package saucedemo.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.Color;
 
 public class NavigationPanel extends BasePage {
 
@@ -24,6 +25,7 @@ public class NavigationPanel extends BasePage {
     }
 
     public String getCartBadgeBackgroundColor() {
-        return driver.findElement(cartBadge).getCssValue("background-color");
+        String color = driver.findElement(cartBadge).getCssValue("background-color");
+        return Color.fromString(color).asHex();
     }
 }
