@@ -27,6 +27,6 @@ public class AddProductsToCartTest extends BaseTest {
         }
 
         Assert.assertEquals(navigationPanel.getCartBadgeCount(), goodsList.size());
-        Assert.assertEquals(navigationPanel.getCartBadgeBackgroundColor(), "rgba(226, 35, 26, 1)");
+        Assert.assertEquals(navigationPanel.getCartBadgeBackgroundColor(), "#e2231a");
     }
 }
