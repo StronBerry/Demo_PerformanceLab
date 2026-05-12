@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="Chrome Suite">
+    <test name="Chrome Tests">
+        <parameter name="browser" value="chrome"/>
+
+        <classes>
+            <class name="saucedemo.tests.LoginTest"/>
+            <class name="saucedemo.tests.IncorrectLoginTest"/>
+            <class name="saucedemo.tests.AddProductsToCartTest"/>
+            <class name="saucedemo.tests.CartTest"/>
+        </classes>
+    </test>
+</suite>

@@ -4,6 +4,7 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,18 +19,45 @@ public class CartPage extends BasePage {
     }
 
     @Step("Дождаться открытия страницы корзины")
-    public void waitUntilPageOpened() {
+    public CartPage waitUntilPageOpened() {
         waitUntilVisible(pageTitle);
+        return this;
+    }
+
+    @Step("Проверить, что открыта страница корзины")
+    public CartPage shouldBeOpened() {
+        Assert.assertTrue(isPageOpened(), "Cart page should be opened");
+        return this;
     }
 
     @Step("Проверить, что открыта страница корзины")
     public boolean isPageOpened() {
-        return driver.findElement(pageTitle).isDisplayed();
+        return isVisible(pageTitle);
+    }
+
+    @Step("Проверить количество товаров в корзине: {expectedCount}")
+    public CartPage shouldProductsCountBe(int expectedCount) {
+        Assert.assertEquals(getProductsCount(), expectedCount);
+        return this;
+    }
+
+    @Step("Проверить, что корзина содержит товары")
+    public CartPage shouldContainProducts(List<String> expectedProducts) {
+        List<String> actualProducts = getProductsNames();
+
+        for (String expectedProduct : expectedProducts) {
+            Assert.assertTrue(
+                    actualProducts.contains(expectedProduct),
+                    "Cart should contain product: " + expectedProduct
+            );
+        }
+
+        return this;
     }
 
     @Step("Получить список товаров в корзине")
     public List<String> getProductsNames() {
-        List<WebElement> allProducts = driver.findElements(productNames);
+        List<WebElement> allProducts = waitUntilAllVisible(productNames);
         List<String> names = new ArrayList<>();
 
         for (WebElement product : allProducts) {
@@ -41,6 +69,6 @@ public class CartPage extends BasePage {
 
     @Step("Получить количество товаров в корзине")
     public int getProductsCount() {
-        return driver.findElements(productNames).size();
+        return findAll(productNames).size();
     }
 }

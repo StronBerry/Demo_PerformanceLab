@@ -1,7 +1,6 @@
 package saucedemo.tests;
 
 import io.qameta.allure.*;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import saucedemo.base.BaseTest;
 import user.UserFactory;
@@ -26,25 +25,14 @@ public class CartTest extends BaseTest {
     @Issue("ISSUE_004")
     @Test(description = "Проверка отображения товаров в корзине после добавления")
     public void checkGoodsInCart() {
-        loginPage.open();
-        loginPage.login(UserFactory.withCorrectData());
-
-        for (String goods : goodsList) {
-            productPage.addToCart(goods);
-        }
-
-        Assert.assertEquals(navigationPanel.getCartBadgeCount(), goodsList.size());
-
-        navigationPanel.openCart();
-        cartPage.waitUntilPageOpened();
-
-        Assert.assertTrue(cartPage.isPageOpened());
-        Assert.assertEquals(cartPage.getProductsCount(), goodsList.size());
-
-        List<String> actualProducts = cartPage.getProductsNames();
-
-        for (String goods : goodsList) {
-            Assert.assertTrue(actualProducts.contains(goods));
-        }
+        loginPage
+                .open()
+                .loginAs(UserFactory.withCorrectData())
+                .addToCart(goodsList)
+                .shouldCartBadgeCountBe(goodsList.size())
+                .openCart()
+                .shouldBeOpened()
+                .shouldProductsCountBe(goodsList.size())
+                .shouldContainProducts(goodsList);
     }
 }

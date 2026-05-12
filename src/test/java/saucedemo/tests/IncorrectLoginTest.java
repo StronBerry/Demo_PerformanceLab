@@ -1,7 +1,6 @@
 package saucedemo.tests;
 
 import io.qameta.allure.*;
-import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import saucedemo.base.BaseTest;
@@ -19,11 +18,11 @@ public class IncorrectLoginTest extends BaseTest {
     @Issue("ISSUE_002")
     @Test(description = "Проверка warning message при различных ошибках логина", dataProvider = "loginData")
     public void incorrectLoginTest(User user, String warningMessage) {
-        loginPage.open();
-        loginPage.login(user);
-
-        Assert.assertTrue(loginPage.isErrorMessageDisplayed());
-        Assert.assertEquals(loginPage.getErrorMessageText(), warningMessage);
+        loginPage
+                .open()
+                .loginExpectingError(user)
+                .shouldErrorMessageBeDisplayed()
+                .shouldErrorMessageTextBe(warningMessage);
     }
 
     @DataProvider

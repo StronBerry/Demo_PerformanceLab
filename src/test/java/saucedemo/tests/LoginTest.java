@@ -1,7 +1,6 @@
 package saucedemo.tests;
 
 import io.qameta.allure.*;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import saucedemo.base.BaseTest;
 import user.UserFactory;
@@ -17,9 +16,9 @@ public class LoginTest extends BaseTest {
     @Issue("ISSUE_001")
     @Test(description = "Проверка успешного логина пользователя")
     public void loginTest() {
-        loginPage.open();
-        loginPage.login(UserFactory.withCorrectData());
-
-        Assert.assertTrue(productPage.isPageOpened());
+        loginPage
+                .open()
+                .loginAs(UserFactory.withCorrectData())
+                .shouldBeOpened();
     }
 }

@@ -3,6 +3,7 @@ package saucedemo.pages;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import user.User;
 
 public class LoginPage extends BasePage {
@@ -16,25 +17,53 @@ public class LoginPage extends BasePage {
         super(driver);
     }
 
-    @Step("Выполнить логин пользователем: {user.login}")
-    public void login(User user) {
-        driver.findElement(usernameInput).clear();
-        driver.findElement(usernameInput).sendKeys(user.getLogin());
+    @Step("Открыть страницу логина")
+    public LoginPage open() {
+        openBaseUrl();
+        return this;
+    }
 
-        driver.findElement(passwordInput).clear();
-        driver.findElement(passwordInput).sendKeys(user.getPassword());
+    @Step("Выполнить успешный логин пользователем: {user.login}")
+    public ProductPage loginAs(User user) {
+        fillLoginForm(user);
+        click(loginButton);
+        return new ProductPage(driver).waitUntilPageOpened();
+    }
 
-        driver.findElement(loginButton).click();
+    @Step("Выполнить неуспешный логин пользователем: {user.login}")
+    public LoginPage loginExpectingError(User user) {
+        fillLoginForm(user);
+        click(loginButton);
+        waitUntilVisible(errorMessage);
+        return this;
+    }
+
+    @Step("Заполнить форму логина")
+    private LoginPage fillLoginForm(User user) {
+        type(usernameInput, user.getLogin());
+        type(passwordInput, user.getPassword());
+        return this;
+    }
+
+    @Step("Проверить, что отображается сообщение об ошибке")
+    public LoginPage shouldErrorMessageBeDisplayed() {
+        Assert.assertTrue(isVisible(errorMessage), "Error message should be displayed");
+        return this;
+    }
+
+    @Step("Проверить текст сообщения об ошибке: {expectedMessage}")
+    public LoginPage shouldErrorMessageTextBe(String expectedMessage) {
+        Assert.assertEquals(getText(errorMessage), expectedMessage);
+        return this;
     }
 
     @Step("Проверить, что отображается сообщение об ошибке")
     public boolean isErrorMessageDisplayed() {
-        return !driver.findElements(errorMessage).isEmpty()
-                && driver.findElement(errorMessage).isDisplayed();
+        return isVisible(errorMessage);
     }
 
     @Step("Получить текст сообщения об ошибке")
     public String getErrorMessageText() {
-        return driver.findElement(errorMessage).getText();
+        return getText(errorMessage);
     }
 }
