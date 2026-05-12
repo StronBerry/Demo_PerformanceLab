@@ -1,5 +1,6 @@
 package saucedemo.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -16,10 +17,12 @@ public class ProductPage extends BasePage {
         super(driver);
     }
 
+    @Step("Проверить, что открыта страница товаров")
     public boolean isPageOpened() {
         return driver.findElement(pageTitle).isDisplayed();
     }
 
+    @Step("Добавить товар в корзину: {goodsName}")
     public void addToCart(String goodsName) {
         By addToCartButton = By.xpath(ADD_TO_CART_PATTERN.formatted(goodsName));
         driver.findElement(addToCartButton).click();

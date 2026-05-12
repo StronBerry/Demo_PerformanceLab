@@ -1,5 +1,6 @@
 package saucedemo.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.Color;
@@ -13,10 +14,12 @@ public class NavigationPanel extends BasePage {
         super(driver);
     }
 
+    @Step("Открыть корзину")
     public void openCart() {
         driver.findElement(cartButton).click();
     }
 
+    @Step("Получить количество товаров в корзине")
     public int getCartBadgeCount() {
         if (driver.findElements(cartBadge).isEmpty()) {
             return 0;
@@ -24,6 +27,7 @@ public class NavigationPanel extends BasePage {
         return Integer.parseInt(driver.findElement(cartBadge).getText());
     }
 
+    @Step("Получить цвет бейджа корзины")
     public String getCartBadgeBackgroundColor() {
         String color = driver.findElement(cartBadge).getCssValue("background-color");
         return Color.fromString(color).asHex();

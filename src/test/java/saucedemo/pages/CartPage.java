@@ -1,5 +1,6 @@
 package saucedemo.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -16,14 +17,17 @@ public class CartPage extends BasePage {
         super(driver);
     }
 
+    @Step("Дождаться открытия страницы корзины")
     public void waitUntilPageOpened() {
         waitUntilVisible(pageTitle);
     }
 
+    @Step("Проверить, что открыта страница корзины")
     public boolean isPageOpened() {
         return driver.findElement(pageTitle).isDisplayed();
     }
 
+    @Step("Получить список товаров в корзине")
     public List<String> getProductsNames() {
         List<WebElement> allProducts = driver.findElements(productNames);
         List<String> names = new ArrayList<>();
@@ -35,6 +39,7 @@ public class CartPage extends BasePage {
         return names;
     }
 
+    @Step("Получить количество товаров в корзине")
     public int getProductsCount() {
         return driver.findElements(productNames).size();
     }

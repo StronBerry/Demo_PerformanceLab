@@ -1,5 +1,6 @@
 package saucedemo.tests;
 
+import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import saucedemo.base.BaseTest;
@@ -7,6 +8,9 @@ import user.UserFactory;
 
 import java.util.List;
 
+@Epic("Корзина")
+@Feature("Добавление товаров")
+@Owner("Malinin S.")
 public class AddProductsToCartTest extends BaseTest {
 
     private final List<String> goodsList = List.of(
@@ -15,7 +19,11 @@ public class AddProductsToCartTest extends BaseTest {
             "Sauce Labs Fleece Jacket"
     );
 
-    @Test
+    @Story("Добавление нескольких товаров в корзину")
+    @Severity(SeverityLevel.CRITICAL)
+    @TmsLink("CART_001")
+    @Issue("ISSUE_003")
+    @Test(description = "Проверка добавления товаров в корзину и отображения счетчика")
     public void addProductsToCartTest() {
         loginPage.open();
         loginPage.login(UserFactory.withCorrectData());
