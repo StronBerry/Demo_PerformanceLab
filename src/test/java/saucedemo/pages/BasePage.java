@@ -41,10 +41,6 @@ public abstract class BasePage {
         return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
     }
 
-    protected WebElement find(By locator) {
-        return waitUntilVisible(locator);
-    }
-
     protected List<WebElement> findAll(By locator) {
         return driver.findElements(locator);
     }

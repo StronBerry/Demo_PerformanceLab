@@ -56,14 +56,4 @@ public class LoginPage extends BasePage {
         Assert.assertEquals(getText(errorMessage), expectedMessage);
         return this;
     }
-
-    @Step("Проверить, что отображается сообщение об ошибке")
-    public boolean isErrorMessageDisplayed() {
-        return isVisible(errorMessage);
-    }
-
-    @Step("Получить текст сообщения об ошибке")
-    public String getErrorMessageText() {
-        return getText(errorMessage);
-    }
 }
