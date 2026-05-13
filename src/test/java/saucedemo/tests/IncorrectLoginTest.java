@@ -4,6 +4,7 @@ import io.qameta.allure.*;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import saucedemo.base.BaseTest;
+import saucedemo.pages.LoginPage;
 import user.User;
 import user.UserFactory;
 
@@ -18,7 +19,7 @@ public class IncorrectLoginTest extends BaseTest {
     @Issue("ISSUE_002")
     @Test(description = "Проверка warning message при различных ошибках логина", dataProvider = "loginData")
     public void incorrectLoginTest(User user, String warningMessage) {
-        loginPage
+        new LoginPage(driver)
                 .open()
                 .loginExpectingError(user)
                 .shouldErrorMessageBeDisplayed()

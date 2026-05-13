@@ -3,6 +3,7 @@ package saucedemo.tests;
 import io.qameta.allure.*;
 import org.testng.annotations.Test;
 import saucedemo.base.BaseTest;
+import saucedemo.pages.LoginPage;
 import user.UserFactory;
 
 @Epic("Авторизация")
@@ -16,7 +17,8 @@ public class LoginTest extends BaseTest {
     @Issue("ISSUE_001")
     @Test(description = "Проверка успешного логина пользователя")
     public void loginTest() {
-        loginPage
+
+        new LoginPage(driver)
                 .open()
                 .loginAs(UserFactory.withCorrectData())
                 .shouldBeOpened();

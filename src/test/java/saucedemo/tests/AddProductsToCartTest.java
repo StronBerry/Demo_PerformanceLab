@@ -3,6 +3,7 @@ package saucedemo.tests;
 import io.qameta.allure.*;
 import org.testng.annotations.Test;
 import saucedemo.base.BaseTest;
+import saucedemo.pages.LoginPage;
 import user.UserFactory;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class AddProductsToCartTest extends BaseTest {
     @Issue("ISSUE_003")
     @Test(description = "Проверка добавления товаров в корзину и отображения счетчика")
     public void addProductsToCartTest() {
-        loginPage
+        new LoginPage(driver)
                 .open()
                 .loginAs(UserFactory.withCorrectData())
                 .shouldBeOpened()

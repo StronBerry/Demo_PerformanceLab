@@ -32,13 +32,13 @@ public class ProductPage extends BasePage {
 
     @Step("Проверить, что открыта страница товаров")
     public ProductPage shouldBeOpened() {
-        Assert.assertTrue(isPageOpened(), "Product page should be opened");
-        return this;
-    }
 
-    @Step("Проверить, что открыта страница товаров")
-    public boolean isPageOpened() {
-        return isVisible(pageTitle);
+        Assert.assertTrue(
+                isVisible(pageTitle),
+                "Product page should be opened"
+        );
+
+        return this;
     }
 
     @Step("Добавить товар в корзину: {goodsName}")
