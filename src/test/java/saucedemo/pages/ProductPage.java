@@ -5,6 +5,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import saucedemo.components.NavigationPanel;
+import saucedemo.enums.PageTitle;
+import saucedemo.enums.Product;
 
 import java.util.List;
 
@@ -15,7 +17,8 @@ public class ProductPage extends BasePage {
                     "/ancestor::div[contains(@class,'inventory_item')]" +
                     "//button[text()='Add to cart']";
 
-    private final By pageTitle = By.xpath("//span[@data-test='title' and text()='Products']");
+    private final By pageTitle = By.xpath("//span[@data-test='title' and text()='%s']"
+            .formatted(PageTitle.PRODUCTS.getTitle()));
 
     private final NavigationPanel navigationPanel;
 
@@ -41,17 +44,17 @@ public class ProductPage extends BasePage {
         return this;
     }
 
-    @Step("Добавить товар в корзину: {goodsName}")
-    public ProductPage addToCart(String goodsName) {
-        By addToCartButton = By.xpath(ADD_TO_CART_PATTERN.formatted(goodsName));
+    @Step("Добавить товар в корзину: {product.title}")
+    public ProductPage addToCart(Product product) {
+        By addToCartButton = By.xpath(ADD_TO_CART_PATTERN.formatted(product.getTitle()));
         click(addToCartButton);
         return this;
     }
 
     @Step("Добавить список товаров в корзину")
-    public ProductPage addToCart(List<String> goodsNames) {
-        for (String goodsName : goodsNames) {
-            addToCart(goodsName);
+    public ProductPage addToCart(List<Product> products) {
+        for (Product product : products) {
+            addToCart(product);
         }
 
         return this;

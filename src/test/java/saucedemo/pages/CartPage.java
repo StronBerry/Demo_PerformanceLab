@@ -5,13 +5,16 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import saucedemo.enums.PageTitle;
+import saucedemo.enums.Product;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CartPage extends BasePage {
 
-    private final By pageTitle = By.xpath("//span[@data-test='title' and text()='Your Cart']");
+    private final By pageTitle = By.xpath("//span[@data-test='title' and text()='%s']"
+            .formatted(PageTitle.YOUR_CART.getTitle()));
     private final By productNames = By.cssSelector(".inventory_item_name");
 
     public CartPage(WebDriver driver) {
@@ -42,13 +45,13 @@ public class CartPage extends BasePage {
     }
 
     @Step("Проверить, что корзина содержит товары")
-    public CartPage shouldContainProducts(List<String> expectedProducts) {
+    public CartPage shouldContainProducts(List<Product> expectedProducts) {
         List<String> actualProducts = getProductsNames();
 
-        for (String expectedProduct : expectedProducts) {
+        for (Product expectedProduct : expectedProducts) {
             Assert.assertTrue(
-                    actualProducts.contains(expectedProduct),
-                    "Cart should contain product: " + expectedProduct
+                    actualProducts.contains(expectedProduct.getTitle()),
+                    "Cart should contain product: " + expectedProduct.getTitle()
             );
         }
 

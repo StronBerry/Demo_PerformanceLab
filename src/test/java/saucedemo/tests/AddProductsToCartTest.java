@@ -3,6 +3,7 @@ package saucedemo.tests;
 import io.qameta.allure.*;
 import org.testng.annotations.Test;
 import saucedemo.base.BaseTest;
+import saucedemo.enums.Product;
 import saucedemo.pages.LoginPage;
 import user.UserFactory;
 
@@ -13,10 +14,10 @@ import java.util.List;
 @Owner("Malinin S.")
 public class AddProductsToCartTest extends BaseTest {
 
-    private final List<String> goodsList = List.of(
-            "Test.allTheThings() T-Shirt (Red)",
-            "Sauce Labs Onesie",
-            "Sauce Labs Fleece Jacket"
+    private final List<Product> goodsList = List.of(
+            Product.TEST_ALL_THE_THINGS_T_SHIRT_RED,
+            Product.SAUCE_LABS_ONESIE,
+            Product.SAUCE_LABS_FLEECE_JACKET
     );
 
     @Story("Добавление нескольких товаров в корзину")
